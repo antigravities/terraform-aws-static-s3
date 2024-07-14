@@ -24,5 +24,5 @@ resource "aws_s3_object" "object" {
   content_type        = try(local.content_types[split(".", each.value)[length(split(".", each.value))-1]], "application/octet-stream")
   content_disposition = "inline"
 
-  content_base64 = base64encode(file("${var.root}/${each.value}"))
+  content_base64 = filebase64("${var.root}/${each.value}")
 }
