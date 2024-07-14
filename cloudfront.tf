@@ -46,6 +46,8 @@ resource "aws_cloudfront_distribution" "distribution" {
       restriction_type = "none"
     }
   }
+
+  aliases = [var.domain]
 }
 
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
