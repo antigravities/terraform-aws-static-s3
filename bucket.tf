@@ -30,10 +30,10 @@ resource "aws_s3_bucket_policy" "policy" {
       {
         Effect = "Allow",
         Principal = {
-          "AWS" : "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path}"
+          "AWS" : "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${aws_cloudfront_origin_access_identity.origin_access_identity.id}"
         },
         Action   = "s3:GetObject",
-        Resource = aws_s3_bucket.bucket.arn
+        Resource = "${aws_s3_bucket.bucket.arn}/*"
       }
     ]
   })
