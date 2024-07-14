@@ -21,6 +21,6 @@ resource "aws_s3_object" "object" {
   key    = each.value
   source = "${var.root}/${each.value}"
 
-  content_type        = try(local.content_types[split(".", each.value)[length(split(".", each.value))]], "application/octet-stream")
+  content_type        = try(local.content_types[split(".", each.value)[length(split(".", each.value))-1]], "application/octet-stream")
   content_disposition = "inline"
 }
