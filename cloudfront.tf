@@ -37,7 +37,8 @@ resource "aws_cloudfront_distribution" "distribution" {
   price_class = var.price_class
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn = aws_acm_certificate.cert.arn
+    ssl_support_method = "sni-only"
   }
 
   restrictions {
@@ -52,4 +53,9 @@ resource "aws_cloudfront_distribution" "distribution" {
 
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
   comment = "CloudFront OAI for ${var.domain}"
+}
+
+resource "aws_acm_certificate" "cert" {
+  domain_name       = var.domain
+  validation_method = "DNS"
 }

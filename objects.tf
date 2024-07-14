@@ -18,9 +18,9 @@ resource "aws_s3_object" "object" {
 
   for_each = fileset(var.root, "**/*")
 
-  key    = each.value
+  key = each.value
 
-  content_type        = try(local.content_types[split(".", each.value)[length(split(".", each.value))-1]], "application/octet-stream")
+  content_type        = try(local.content_types[split(".", each.value)[length(split(".", each.value)) - 1]], "application/octet-stream")
   content_disposition = "inline"
 
   content_base64 = filebase64("${var.root}/${each.value}")
