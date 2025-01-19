@@ -38,7 +38,7 @@ resource "aws_cloudfront_distribution" "distribution" {
 
   viewer_certificate {
     acm_certificate_arn = aws_acm_certificate.cert.arn
-    ssl_support_method = "sni-only"
+    ssl_support_method  = "sni-only"
   }
 
   restrictions {
@@ -49,6 +49,17 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   aliases = [var.domain]
+
+  dynamic "custom_error_response" {
+    for_each = var.custom_404_page != "" ? [1] : []
+
+    content {
+      error_caching_min_ttl = 0
+      error_code            = 404
+      response_code         = 404
+      response_page_path    = var.custom_404_page
+    }
+  }
 }
 
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {

@@ -20,6 +20,12 @@ variable "root" {
   type        = string
 }
 
+variable "custom_404_page" {
+  description = "The custom 404 page to serve"
+  type        = string
+  default     = ""
+}
+
 output "bucket" {
   description = "The name of the S3 bucket"
   value       = aws_s3_bucket.bucket.bucket
