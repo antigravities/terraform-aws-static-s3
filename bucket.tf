@@ -32,7 +32,10 @@ resource "aws_s3_bucket_policy" "policy" {
         Principal = {
           "AWS" : "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${aws_cloudfront_origin_access_identity.origin_access_identity.id}"
         },
-        Action   = "s3:GetObject",
+        Action = [
+          "s3:GetObject",
+          "s3:ListBucket"
+        ],
         Resource = "${aws_s3_bucket.bucket.arn}/*"
       }
     ]
